@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { overlay, useTheme } from 'react-native-paper'
+import { useTheme } from 'react-native-paper'
 import Color from 'color'
 
 export function useLatest<T>(value: T) {
@@ -9,10 +9,7 @@ export function useLatest<T>(value: T) {
 }
 
 export function useHeaderBackgroundColor() {
-  const theme = useTheme()
-  return theme.dark && theme.mode === 'adaptive'
-    ? overlay(4, theme.colors.surface)
-    : theme.colors.primary
+  return '#0B6327'
 }
 
 export function useHeaderColorIsLight() {
