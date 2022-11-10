@@ -98,6 +98,9 @@ function TextInputWithMask(
       {...rest}
       value={controlledValue}
       onChangeText={onInnerChange}
+      activeUnderlineColor="#A2D2BD"
+      underlineColor="#0B3C29"
+      selectionColor="#E1EDE7"
     />
   )
 }

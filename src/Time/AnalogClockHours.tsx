@@ -60,6 +60,7 @@ function AnalogClockHours({
                     i + 13 === hours || (i + 13 === 24 && hours === 0)
                       ? { color }
                       : null,
+                    { fontFamily: 'Poppins-SemiBold' },
                   ]}
                 >
                   {i + 13 === 24 ? '00' : i + 13}

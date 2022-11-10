@@ -31,7 +31,11 @@ function AnalogClockMinutes({ minutes }: { minutes: number }) {
           >
             <View style={styles.outerHourInner}>
               <Text
-                style={isCurrent ? { color } : undefined}
+                style={
+                  isCurrent
+                    ? { color, fontFamily: 'Poppins-SemiBold' }
+                    : { fontFamily: 'Poppins-SemiBold' }
+                }
                 selectable={false}
               >
                 {isZero ? '00' : currentMinutes}

@@ -68,6 +68,7 @@ function TimeInput(
         ref={ref}
         style={[
           styles.input,
+          { fontFamily: 'Poppins-SemiBold' },
           {
             color,
             backgroundColor,

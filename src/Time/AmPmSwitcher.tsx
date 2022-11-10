@@ -94,6 +94,7 @@ function SwitchButton({
             {
               ...theme.fonts.medium,
               color: color,
+              fontFamily: 'Poppins-SemiBold',
             },
           ]}
         >

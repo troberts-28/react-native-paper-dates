@@ -278,7 +278,11 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
             ]}
           >
             <Text
-              style={[styles.monthLabel, theme.fonts.medium]}
+              style={[
+                styles.monthLabel,
+                theme.fonts.medium,
+                { fontFamily: 'Poppins-SemiBold' },
+              ]}
               selectable={false}
             >
               {monthName} {year}

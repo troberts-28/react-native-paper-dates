@@ -89,7 +89,11 @@ function YearPure({
           ]}
         >
           <Text
-            style={[styles.yearLabel, selected ? styles.selectedYear : null]}
+            style={[
+              styles.yearLabel,
+              selected ? styles.selectedYear : null,
+              { fontFamily: 'Poppins-SemiBold' },
+            ]}
             selectable={false}
           >
             {year}

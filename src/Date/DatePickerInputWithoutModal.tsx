@@ -58,7 +58,14 @@ function DatePickerInputWithoutModal(
           onChangeText={onChangeText}
           keyboardAppearance={theme.dark ? 'dark' : 'default'}
           error={!!error}
-          style={[styles.input, style]}
+          style={[
+            styles.input,
+            style,
+            {
+              fontFamily: 'Poppins-SemiBold',
+              color: '#3D3C3C',
+            },
+          ]}
         />
         {inputButtons}
         {!!error ? (

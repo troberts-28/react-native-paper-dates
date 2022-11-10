@@ -7,7 +7,11 @@ function DayName({ label }: { label: string }) {
   return (
     <View style={styles.dayName}>
       <Text
-        style={[styles.dayNameLabel, theme.fonts.medium]}
+        style={[
+          styles.dayNameLabel,
+          theme.fonts.medium,
+          { fontFamily: 'Poppins-SemiBold' },
+        ]}
         selectable={false}
       >
         {label}

@@ -91,6 +91,7 @@ export default function DatePickerModalContentHeader(
       <View style={styles.fill} />
       {allowEditing ? (
         <IconButton
+          size={32}
           icon={collapsed ? editIcon : calendarIcon}
           accessibilityLabel={
             collapsed

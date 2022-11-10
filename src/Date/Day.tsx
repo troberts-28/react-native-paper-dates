@@ -83,7 +83,11 @@ function Day(props: {
           ]}
         >
           <Text
-            style={textColor ? { color: textColor } : undefined}
+            style={
+              textColor
+                ? { color: textColor, fontFamily: 'Poppins-SemiBold' }
+                : { fontFamily: 'Poppins-SemiBold' }
+            }
             selectable={false}
           >
             {day}
