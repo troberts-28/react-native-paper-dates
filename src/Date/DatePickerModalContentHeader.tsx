@@ -69,7 +69,7 @@ export default function DatePickerModalContentHeader(
   return (
     <View style={[styles.header]}>
       <View>
-        <Text style={[styles.label, { color }]}>
+        <Text style={[styles.label, { color, fontFamily: 'Poppins-SemiBold' }]}>
           {uppercase ? label.toUpperCase() : label}
         </Text>
         <View style={styles.headerContentContainer}>
@@ -122,7 +122,12 @@ export function HeaderContentSingle({
   }, [locale])
 
   return (
-    <Text style={[styles.singleHeaderText, { color: dateColor }]}>
+    <Text
+      style={[
+        styles.singleHeaderText,
+        { color: dateColor, fontFamily: 'Poppins-SemiBold' },
+      ]}
+    >
       {state.date ? formatter.format(state.date) : emptyLabel}
     </Text>
   )

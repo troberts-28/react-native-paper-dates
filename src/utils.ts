@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useTheme } from 'react-native-paper'
 import Color from 'color'
 
 export function useLatest<T>(value: T) {
@@ -9,27 +8,22 @@ export function useLatest<T>(value: T) {
 }
 
 export function useHeaderBackgroundColor() {
-  return '#0B6327'
+  return '#0B3C29'
 }
 
 export function useHeaderColorIsLight() {
-  const theme = useTheme()
-  const background =
-    theme.dark && theme.mode === 'adaptive'
-      ? theme.colors.surface
-      : theme.colors.primary
+  const background = '#0B3C29'
   return Color(background).isLight()
 }
 
 export function useHeaderTextColor() {
   const isLight = useHeaderColorIsLight()
-  return !isLight ? '#fff' : '#000'
+  return !isLight ? '#CCE4D9' : '#3D3C3C'
 }
 
 export function useTextColorOnPrimary() {
-  const theme = useTheme()
-  const isDark = !Color(theme.colors.primary).isLight()
-  return isDark ? '#fff' : '#000'
+  const isDark = !Color('#0B3C29').isLight()
+  return isDark ? '#CCE4D9' : '#3D3C3C'
 }
 
 export function range(start: number, end: number) {
