@@ -34,6 +34,7 @@ export default function YearPicker({
         animated: false,
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flatList, selectedYear])
 
   return (
@@ -73,7 +74,6 @@ function YearPure({
   selected: boolean
   onPressYear: (newYear: number) => any
 }) {
-  const theme = useTheme()
   return (
     <View style={styles.year}>
       <TouchableRipple
