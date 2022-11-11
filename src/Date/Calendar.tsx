@@ -181,7 +181,7 @@ function Calendar(
             selectingYear={selectingYear}
             onPressDate={onPressDate}
             scrollMode={scrollMode}
-            primaryColor={'#0B3C29'}
+            primaryColor={'#0B6327'}
             selectColor={'#0B6327'}
             roundness={theme.roundness}
             disableWeekDays={disableWeekDays}

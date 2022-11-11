@@ -193,14 +193,14 @@ export function useInputColors(highlighted: boolean) {
     }
 
     if (highlighted) {
-      return '#E1EDE7'
+      return '#CCE4D9'
     }
     return Color(theme.colors.surface).darken(0.1).hex()
   }, [highlighted, theme])
 
   const color = React.useMemo<string>(() => {
     if (highlighted && !theme.dark) {
-      return '#0B3C29'
+      return '#0B6327'
     }
     return theme.colors.text
   }, [highlighted, theme])

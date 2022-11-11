@@ -59,7 +59,6 @@ export default function DateTimePickerModalContentHeader(
     collapsed,
     mode,
     moreLabel,
-    uppercase,
     editIcon = 'pencil',
     calendarIcon = 'calendar',
   } = props
@@ -72,7 +71,7 @@ export default function DateTimePickerModalContentHeader(
     <View style={[styles.header]}>
       <View>
         <Text style={[styles.label, { color, fontFamily: 'Poppins-SemiBold' }]}>
-          {uppercase ? label.toUpperCase() : label}
+          {label}
         </Text>
         <View style={styles.headerContentContainer}>
           {mode === 'range' ? (
@@ -125,6 +124,7 @@ export function HeaderContentSingle({
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
+      hour12: false,
     })
   }, [locale])
 

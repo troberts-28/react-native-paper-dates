@@ -157,7 +157,14 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   }, [onConfirm, state.date, localHours, localMinutes])
 
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
       <DatePickerModalHeaderBackground>
         <DatePickerModalHeader
           locale={locale}
@@ -221,7 +228,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           />
         </View>
       </View>
-    </>
+    </View>
   )
 }
 
