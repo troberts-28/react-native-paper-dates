@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { IconButton, Text } from 'react-native-paper'
+import { Button, IconButton, Text } from 'react-native-paper'
 import type { ModeType } from './Calendar'
 import type { LocalState } from './DatePickerModalContent'
 import { useHeaderTextColor } from '../utils'
@@ -29,6 +29,10 @@ export interface HeaderContentProps extends HeaderPickProps {
   collapsed: boolean
   onToggle?: () => any
   locale: string | undefined
+  showSaveButton?: boolean
+  saveLabel?: string
+  saveLabelDisabled?: boolean
+  onSave?: () => void
 }
 
 function getLabel(
@@ -62,6 +66,8 @@ export default function DateTimePickerModalContentHeader(
     editIcon = 'pencil',
     calendarIcon = 'calendar',
   } = props
+
+  const saveLabel = props.saveLabel || getTranslation(props.locale, 'save')
 
   const label = getLabel(props.locale, props.mode, props.label)
 
@@ -102,6 +108,18 @@ export default function DateTimePickerModalContentHeader(
           color={color}
           onPress={onToggle}
         />
+      ) : null}
+      {props.showSaveButton ? (
+        <Button
+          color={color}
+          onPress={props.onSave}
+          disabled={props.saveLabelDisabled || false}
+          uppercase={false}
+          labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
+          testID="react-native-paper-dates-save"
+        >
+          {saveLabel}
+        </Button>
       ) : null}
     </View>
   )

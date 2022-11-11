@@ -14,6 +14,7 @@ export interface DatePickerModalHeaderProps {
   onSave: () => void
   locale: string | undefined
   closeIcon?: string
+  hideSaveButton?: boolean
 }
 
 export default function DatePickerModalHeader(
@@ -40,16 +41,18 @@ export default function DatePickerModalHeader(
               testID="react-native-paper-dates-close"
             />
             <Appbar.Content title={''} />
-            <Button
-              color={color}
-              onPress={props.onSave}
-              disabled={props.saveLabelDisabled || false}
-              uppercase={false}
-              labelStyle={{ fontFamily: 'Poppins-SemiBold' }}
-              testID="react-native-paper-dates-save"
-            >
-              {saveLabel}
-            </Button>
+            {props.hideSaveButton ? (
+              <Button
+                color={color}
+                onPress={props.onSave}
+                disabled={props.saveLabelDisabled || false}
+                uppercase={false}
+                labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
+                testID="react-native-paper-dates-save"
+              >
+                {saveLabel}
+              </Button>
+            ) : null}
           </Appbar>
         </SafeAreaView>
       </Animated.View>

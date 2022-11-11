@@ -175,6 +175,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           uppercase={props.uppercase || true}
           disableSafeTop={disableSafeTop}
           closeIcon={props.closeIcon}
+          hideSaveButton
         />
         <DateTimePickerModalContentHeader
           state={state}
@@ -190,6 +191,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           endLabel={props.endLabel}
           uppercase={props.uppercase || true}
           locale={locale}
+          showSaveButton
         />
       </DatePickerModalHeaderBackground>
 
@@ -247,10 +249,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 24 * 3 + 96 * 2 + 52 + circleSize,
+    width: 24 * 3 + 96 * 2 + circleSize,
   },
   rootPortrait: {},
-  clockContainer: { padding: 12 },
+  clockContainer: { paddingTop: 36, paddingLeft: 12, paddingRight: 12 },
 })
 
 export default React.memo(DatePickerModalContent)
