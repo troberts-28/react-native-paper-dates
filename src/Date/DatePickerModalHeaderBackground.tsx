@@ -27,8 +27,10 @@ const styles = StyleSheet.create({
   animated: {
     paddingBottom: 0,
     elevation: 4,
+    width: '100%',
   },
   safeContent: {
     paddingBottom: 0,
+    width: '100%',
   },
 })

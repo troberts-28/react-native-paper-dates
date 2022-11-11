@@ -2,7 +2,6 @@ import * as React from 'react'
 import { View, TextInput, TextInputProps, StyleSheet } from 'react-native'
 import { useTheme, TouchableRipple } from 'react-native-paper'
 
-import Color from 'color'
 import {
   inputTypes,
   PossibleClockTypes,
@@ -94,7 +93,7 @@ function TimeInput(
               borderRadius: theme.roundness,
             },
           ]}
-          rippleColor={Color(theme.colors.primary).fade(0.7).hex()}
+          rippleColor="#A2D2BD"
           onPress={() => onPress(clockType)}
           borderless={true}
         >
