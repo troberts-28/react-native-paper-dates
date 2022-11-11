@@ -139,7 +139,7 @@ function AnalogClock({
         style={[
           styles.line,
           {
-            backgroundColor: theme.colors.primary,
+            backgroundColor: '#0B3C29',
             transform: [
               { rotate: -90 + pointerNumber * degreesPerNumber + 'deg' },
               {
@@ -151,9 +151,7 @@ function AnalogClock({
         ]}
         pointerEvents="none"
       >
-        <View
-          style={[styles.endPoint, { backgroundColor: theme.colors.primary }]}
-        />
+        <View style={[styles.endPoint, { backgroundColor: '#0B3C29' }]} />
       </View>
       <View
         style={[StyleSheet.absoluteFill, styles.center]}
@@ -163,7 +161,7 @@ function AnalogClock({
           style={[
             styles.middlePoint,
             {
-              backgroundColor: theme.colors.primary,
+              backgroundColor: '#0B3C29',
             },
           ]}
         />

@@ -7,9 +7,9 @@ import Calendar, {
   CalendarDates,
 } from './Calendar'
 import DatePickerModalHeader from './DatePickerModalHeader'
-import DatePickerModalContentHeader, {
+import DateTimePickerModalContentHeader, {
   HeaderPickProps,
-} from './DatePickerModalContentHeader'
+} from './DateTimePickerModalContentHeader'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
 import AnalogClock from '../Time/AnalogClock'
 import {
@@ -169,8 +169,10 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           disableSafeTop={disableSafeTop}
           closeIcon={props.closeIcon}
         />
-        <DatePickerModalContentHeader
+        <DateTimePickerModalContentHeader
           state={state}
+          hours={localHours}
+          minutes={localMinutes}
           mode="single"
           collapsed={true}
           headerSeparator={props.headerSeparator}
@@ -234,13 +236,14 @@ function getHours(hours: number | undefined | null): number {
 
 const styles = StyleSheet.create({
   rootLandscape: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: 24 * 3 + 96 * 2 + 52 + circleSize,
   },
   rootPortrait: {},
-  clockContainer: { paddingTop: 12, paddingLeft: 12, paddingRight: 12 },
+  clockContainer: { padding: 12 },
 })
 
 export default React.memo(DatePickerModalContent)
