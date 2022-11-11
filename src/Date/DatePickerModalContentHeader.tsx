@@ -25,7 +25,7 @@ export interface HeaderContentProps extends HeaderPickProps {
   state: LocalState
   mode: ModeType
   collapsed: boolean
-  onToggle: () => any
+  onToggle?: () => any
   locale: string | undefined
 }
 
@@ -89,7 +89,7 @@ export default function DatePickerModalContentHeader(
         </View>
       </View>
       <View style={styles.fill} />
-      {allowEditing ? (
+      {allowEditing && onToggle ? (
         <IconButton
           size={32}
           icon={collapsed ? editIcon : calendarIcon}
