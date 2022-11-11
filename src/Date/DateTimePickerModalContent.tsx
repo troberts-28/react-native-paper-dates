@@ -194,6 +194,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           showSaveButton
           saveLabel={props.saveLabel}
           saveLabelDisabled={props.saveLabelDisabled || false}
+          onSave={onInnerConfirm}
         />
       </DatePickerModalHeaderBackground>
 
