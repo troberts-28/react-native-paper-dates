@@ -41,7 +41,7 @@ export default function DatePickerModalHeader(
               testID="react-native-paper-dates-close"
             />
             <Appbar.Content title={''} />
-            {props.hideSaveButton ? (
+            {!props.hideSaveButton ? (
               <Button
                 color={color}
                 onPress={props.onSave}

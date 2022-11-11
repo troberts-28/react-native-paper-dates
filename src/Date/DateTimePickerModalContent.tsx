@@ -192,6 +192,8 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           uppercase={props.uppercase || true}
           locale={locale}
           showSaveButton
+          saveLabel={props.saveLabel}
+          saveLabelDisabled={props.saveLabelDisabled || false}
         />
       </DatePickerModalHeaderBackground>
 
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
     width: 24 * 3 + 96 * 2 + circleSize,
   },
   rootPortrait: {},
-  clockContainer: { paddingTop: 36, paddingLeft: 12, paddingRight: 12 },
+  clockContainer: { padding: 12 },
 })
 
 export default React.memo(DatePickerModalContent)
