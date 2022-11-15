@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native'
 import { Button, IconButton, Text } from 'react-native-paper'
 import type { ModeType } from './Calendar'
 import { useHeaderTextColor } from '../utils'
-import Color from 'color'
 import { getTranslation } from '../translations/utils'
 
 export interface HeaderPickProps {
@@ -122,9 +121,6 @@ export function HeaderContentSingle({
   color,
   locale,
 }: HeaderContentProps & { color: string }) {
-  const lighterColor = Color(color).fade(0.5).rgb().toString()
-  const dateColor = dayIndex ? color : lighterColor
-
   const formatter = React.useMemo(() => {
     return new Intl.DateTimeFormat(locale, {
       hour: 'numeric',
@@ -141,7 +137,7 @@ export function HeaderContentSingle({
     <Text
       style={[
         styles.singleHeaderText,
-        { color: dateColor, fontFamily: 'Poppins-SemiBold' },
+        { color: color, fontFamily: 'Poppins-SemiBold' },
       ]}
     >
       {`${daysOfWeek[dayIndex]} ${formatter.format(time)}${
