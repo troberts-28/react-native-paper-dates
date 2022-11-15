@@ -8,7 +8,7 @@ function EmptyDayPure() {
 }
 export const EmptyDay = React.memo(EmptyDayPure)
 
-const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 function DayOfWeek(props: {
   dayIndex: number

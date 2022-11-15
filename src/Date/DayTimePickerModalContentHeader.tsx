@@ -54,7 +54,7 @@ function getLabel(
   return '...?'
 }
 
-const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export default function DayTimePickerModalContentHeader(
   props: HeaderContentProps
