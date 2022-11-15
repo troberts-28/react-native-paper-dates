@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    marginHorizontal: 6,
   },
   button: {
     width: daySize,

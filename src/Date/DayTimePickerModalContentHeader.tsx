@@ -131,12 +131,9 @@ export function HeaderContentSingle({
     })
   }, [locale])
 
-  let time
-  if (hours && minutes) {
-    time = new Date()
-    time.setHours(hours)
-    time.setMinutes(minutes)
-  }
+  const time = new Date()
+  time.setHours(hours)
+  time.setMinutes(minutes)
 
   return (
     <Text
@@ -145,7 +142,7 @@ export function HeaderContentSingle({
         { color: dateColor, fontFamily: 'Poppins-SemiBold' },
       ]}
     >
-      {`${daysOfWeek[dayIndex]} ${time ? formatter.format(time) : ''}`}
+      {`${daysOfWeek[dayIndex]} ${formatter.format(time)}`}
     </Text>
   )
 }

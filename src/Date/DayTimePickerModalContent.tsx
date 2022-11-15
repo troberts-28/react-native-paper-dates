@@ -175,12 +175,14 @@ export function DateTimePickerModalContent(
         />
       </DatePickerModalHeaderBackground>
 
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginVertical: 24 }}>
         {Array.from(Array(7)).map((_, index) => {
+          // required for Monday to show first
+          const adjustedIndex = index < 6 ? index + 1 : 0
           return (
             <DayOfWeek
-              dayIndex={index}
-              selected={true}
+              dayIndex={adjustedIndex}
+              selected={localDayIndex === adjustedIndex}
               onPressDay={onInnerChangeDay}
               primaryColor="#0B6327"
               disabled={false}
