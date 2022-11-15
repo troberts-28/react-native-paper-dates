@@ -1,15 +1,10 @@
 import * as React from 'react'
 import { View, StyleSheet, useWindowDimensions } from 'react-native'
 
-import Calendar, {
-  BaseCalendarProps,
-  CalendarDate,
-  CalendarDates,
-} from './Calendar'
 import DatePickerModalHeader from './DatePickerModalHeader'
-import DateTimePickerModalContentHeader, {
+import DayTimePickerModalContentHeader, {
   HeaderPickProps,
-} from './DateTimePickerModalContentHeader'
+} from './DayTimePickerModalContentHeader'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
 import AnalogClock from '../Time/AnalogClock'
 import {
@@ -20,6 +15,7 @@ import {
   PossibleClockTypes,
 } from '../Time/timeUtils'
 import TimeInputs from '../Time/TimeInputs'
+import DayOfWeek from './DayOfWeek'
 
 type onChangeFunc = ({
   hours,
@@ -31,63 +27,37 @@ type onChangeFunc = ({
   focused?: undefined | PossibleClockTypes
 }) => any
 
-export type LocalState = {
-  startDate: CalendarDate
-  endDate: CalendarDate
-  date: CalendarDate
-  dates: CalendarDates
-}
-
-export interface DateTimePickerModalContentProps
-  extends HeaderPickProps,
-    BaseCalendarProps {
+export interface DayTimePickerModalContentProps extends HeaderPickProps {
   inputFormat?: string
   locale: string
   onDismiss: () => any
   disableSafeTop?: boolean
   saveLabelDisabled?: boolean
-  date?: CalendarDate
+  dayIndex?: number | undefined
   hours?: number | undefined
   minutes?: number | undefined
   onChange?: (params: {
-    date: CalendarDate
+    dayIndex: number
     hours: number
     minutes: number
   }) => void
   onConfirm: (params: {
-    date: CalendarDate
+    dayIndex: number
     hours: number
     minutes: number
   }) => void
-  dateMode?: 'start' | 'end'
 }
 
-export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
-  const {
-    onChange,
-    onConfirm,
-    onDismiss,
-    disableSafeTop,
-    disableWeekDays,
-    locale,
-    validRange,
-    dateMode,
-    startYear,
-    endYear,
-  } = props
+export function DateTimePickerModalContent(
+  props: DayTimePickerModalContentProps
+) {
+  const { onChange, onConfirm, onDismiss, disableSafeTop, locale } = props
 
   const anyProps = props as any
 
   const dimensions = useWindowDimensions()
   const isLandscape = dimensions.width > dimensions.height
 
-  // use local state to add only onConfirm state changes
-  const [state, setState] = React.useState<LocalState>({
-    date: anyProps.date,
-    startDate: anyProps.startDate,
-    endDate: anyProps.endDate,
-    dates: anyProps.dates,
-  })
   const [focused, setFocused] = React.useState<PossibleClockTypes>(
     clockTypes.hours
   )
@@ -95,15 +65,13 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const [localMinutes, setLocalMinutes] = React.useState<number>(
     getMinutes(anyProps.minutes)
   )
+  const [localDayIndex, setLocalDayIndex] = React.useState<number>(
+    getDayIndex(anyProps.DayIndex)
+  )
 
   // update local state if changed from outside or if modal is opened
   React.useEffect(() => {
-    setState({
-      date: anyProps.date,
-      startDate: anyProps.startDate,
-      endDate: anyProps.endDate,
-      dates: anyProps.dates,
-    })
+    setLocalDayIndex(getDayIndex(anyProps.DayIndex))
     setLocalHours(getHours(anyProps.hours))
     setLocalMinutes(getMinutes(anyProps.minutes))
   }, [
@@ -113,14 +81,20 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     anyProps.dates,
     anyProps.hours,
     anyProps.minutes,
+    anyProps.DayIndex,
   ])
 
-  const onInnerChangeDate = React.useCallback(
-    (params: any) => {
-      onChange && onChange(params)
-      setState((prev) => ({ ...prev, ...params }))
+  const onInnerChangeDay = React.useCallback(
+    (dayIndex: number) => {
+      onChange &&
+        onChange({
+          dayIndex: dayIndex,
+          hours: localHours,
+          minutes: localMinutes,
+        })
+      setLocalDayIndex(dayIndex)
     },
-    [onChange, setState]
+    [localHours, localMinutes, onChange]
   )
 
   const onFocusInput = React.useCallback(
@@ -152,8 +126,12 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   )
 
   const onInnerConfirm = React.useCallback(() => {
-    onConfirm({ date: state.date, hours: localHours, minutes: localMinutes })
-  }, [onConfirm, state.date, localHours, localMinutes])
+    onConfirm({
+      dayIndex: localDayIndex,
+      hours: localHours,
+      minutes: localMinutes,
+    })
+  }, [onConfirm, localDayIndex, localHours, localMinutes])
 
   return (
     <View
@@ -176,8 +154,8 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           closeIcon={props.closeIcon}
           hideSaveButton
         />
-        <DateTimePickerModalContentHeader
-          state={state}
+        <DayTimePickerModalContentHeader
+          dayIndex={localDayIndex}
           hours={localHours}
           minutes={localMinutes}
           mode="single"
@@ -197,20 +175,20 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         />
       </DatePickerModalHeaderBackground>
 
-      <Calendar
-        locale={locale}
-        mode="single"
-        startDate={state.startDate}
-        endDate={state.endDate}
-        date={state.date}
-        onChange={onInnerChangeDate}
-        disableWeekDays={disableWeekDays}
-        dates={state.dates}
-        validRange={validRange}
-        dateMode={dateMode}
-        startYear={startYear}
-        endYear={endYear}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        {Array.from(Array(7)).map((_, index) => {
+          return (
+            <DayOfWeek
+              dayIndex={index}
+              selected={true}
+              onPressDay={onInnerChangeDay}
+              primaryColor="#0B6327"
+              disabled={false}
+              textColorOnPrimary="#fff"
+            />
+          )
+        })}
+      </View>
 
       <View style={isLandscape ? styles.rootLandscape : styles.rootPortrait}>
         <TimeInputs
@@ -244,6 +222,14 @@ function getMinutes(minutes: number | undefined | null): number {
 function getHours(hours: number | undefined | null): number {
   return hours === undefined || hours === null ? new Date().getHours() : hours
 }
+function getDayIndex(dayIndex: number | undefined | null): number {
+  return dayIndex === undefined ||
+    dayIndex === null ||
+    dayIndex < 0 ||
+    dayIndex > 6
+    ? 0
+    : dayIndex
+}
 
 const styles = StyleSheet.create({
   rootLandscape: {
@@ -257,4 +243,4 @@ const styles = StyleSheet.create({
   clockContainer: { padding: 12 },
 })
 
-export default React.memo(DatePickerModalContent)
+export default React.memo(DateTimePickerModalContent)
