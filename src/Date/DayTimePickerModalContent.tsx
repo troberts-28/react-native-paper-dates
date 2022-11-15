@@ -66,23 +66,15 @@ export function DateTimePickerModalContent(
     getMinutes(anyProps.minutes)
   )
   const [localDayIndex, setLocalDayIndex] = React.useState<number>(
-    getDayIndex(anyProps.DayIndex)
+    getDayIndex(anyProps.dayIndex)
   )
 
   // update local state if changed from outside or if modal is opened
   React.useEffect(() => {
-    setLocalDayIndex(getDayIndex(anyProps.DayIndex))
+    setLocalDayIndex(getDayIndex(anyProps.dayIndex))
     setLocalHours(getHours(anyProps.hours))
     setLocalMinutes(getMinutes(anyProps.minutes))
-  }, [
-    anyProps.date,
-    anyProps.startDate,
-    anyProps.endDate,
-    anyProps.dates,
-    anyProps.hours,
-    anyProps.minutes,
-    anyProps.DayIndex,
-  ])
+  }, [anyProps.hours, anyProps.minutes, anyProps.dayIndex])
 
   const onInnerChangeDay = React.useCallback(
     (dayIndex: number) => {
@@ -175,7 +167,7 @@ export function DateTimePickerModalContent(
         />
       </DatePickerModalHeaderBackground>
 
-      <View style={{ flexDirection: 'row', marginVertical: 24 }}>
+      <View style={{ flexDirection: 'row', marginTop: 32 }}>
         {Array.from(Array(7)).map((_, index) => {
           // required for Monday to show first
           const adjustedIndex = index < 6 ? index + 1 : 0

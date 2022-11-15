@@ -52,8 +52,12 @@ function DayOfWeek(props: {
           <Text
             style={
               textColor
-                ? { color: textColor, fontFamily: 'Poppins-SemiBold' }
-                : { fontFamily: 'Poppins-SemiBold' }
+                ? {
+                    color: textColor,
+                    fontFamily: 'Poppins-SemiBold',
+                    fontSize: 18,
+                  }
+                : { fontFamily: 'Poppins-SemiBold', fontSize: 18 }
             }
             selectable={false}
           >
