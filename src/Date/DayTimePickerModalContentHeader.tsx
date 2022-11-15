@@ -24,6 +24,7 @@ export interface HeaderContentProps extends HeaderPickProps {
   dayIndex: number
   hours: number
   minutes: number
+  duration?: number | undefined | null
   mode: ModeType
   collapsed: boolean
   onToggle?: () => any
@@ -117,6 +118,7 @@ export function HeaderContentSingle({
   dayIndex,
   hours,
   minutes,
+  duration,
   color,
   locale,
 }: HeaderContentProps & { color: string }) {
@@ -142,7 +144,12 @@ export function HeaderContentSingle({
         { color: dateColor, fontFamily: 'Poppins-SemiBold' },
       ]}
     >
-      {`${daysOfWeek[dayIndex]} ${formatter.format(time)}`}
+      {`${daysOfWeek[dayIndex]} ${formatter.format(time)}${
+        duration
+          ? ' - ' +
+            formatter.format(new Date(time.getTime() + duration * 60000))
+          : ''
+      }`}
     </Text>
   )
 }

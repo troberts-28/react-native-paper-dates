@@ -36,6 +36,7 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
   dayIndex?: number | undefined
   hours?: number | undefined
   minutes?: number | undefined
+  duration?: number | undefined | null
   onChange?: (params: {
     dayIndex: number
     hours: number
@@ -150,6 +151,7 @@ export function DateTimePickerModalContent(
           dayIndex={localDayIndex}
           hours={localHours}
           minutes={localMinutes}
+          duration={anyProps.duration}
           mode="single"
           collapsed={true}
           headerSeparator={props.headerSeparator}
