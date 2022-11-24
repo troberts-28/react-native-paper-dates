@@ -31,6 +31,7 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
   inputFormat?: string
   locale: string
   onDismiss: () => any
+  isLoading?: boolean
   disableSafeTop?: boolean
   saveLabelDisabled?: boolean
   dayIndex?: number | undefined
@@ -139,6 +140,7 @@ export function DateTimePickerModalContent(
         <DatePickerModalHeader
           locale={locale}
           onSave={onInnerConfirm}
+          isLoading={props.isLoading}
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
           saveLabelDisabled={props.saveLabelDisabled || false}
@@ -165,6 +167,7 @@ export function DateTimePickerModalContent(
           showSaveButton
           saveLabel={props.saveLabel}
           saveLabelDisabled={props.saveLabelDisabled || false}
+          isLoading={props.isLoading}
           onSave={onInnerConfirm}
         />
       </DatePickerModalHeaderBackground>

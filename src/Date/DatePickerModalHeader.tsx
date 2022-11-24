@@ -15,6 +15,7 @@ export interface DatePickerModalHeaderProps {
   locale: string | undefined
   closeIcon?: string
   hideSaveButton?: boolean
+  isLoading?: boolean
 }
 
 export default function DatePickerModalHeader(
@@ -49,6 +50,7 @@ export default function DatePickerModalHeader(
                 uppercase={false}
                 labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
                 testID="react-native-paper-dates-save"
+                loading={props.isLoading}
               >
                 {saveLabel}
               </Button>

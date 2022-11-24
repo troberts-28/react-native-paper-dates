@@ -24,6 +24,7 @@ export interface HeaderContentProps extends HeaderPickProps {
   hours: number
   minutes: number
   duration?: number | undefined | null
+  isLoading?: boolean
   mode: ModeType
   collapsed: boolean
   onToggle?: () => any
@@ -105,6 +106,7 @@ export default function DayTimePickerModalContentHeader(
           uppercase={false}
           labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
           testID="react-native-paper-dates-save"
+          loading={props.isLoading}
         >
           {saveLabel}
         </Button>

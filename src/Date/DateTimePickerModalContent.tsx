@@ -50,6 +50,7 @@ export interface DateTimePickerModalContentProps
   hours?: number | undefined
   minutes?: number | undefined
   duration?: number | undefined | null
+  isLoading?: boolean
   onChange?: (params: {
     date: CalendarDate
     hours: number
@@ -169,6 +170,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         <DatePickerModalHeader
           locale={locale}
           onSave={onInnerConfirm}
+          isLoading={props.isLoading}
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
           saveLabelDisabled={props.saveLabelDisabled || false}
@@ -195,6 +197,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           showSaveButton
           saveLabel={props.saveLabel}
           saveLabelDisabled={props.saveLabelDisabled || false}
+          isLoading={props.isLoading}
           onSave={onInnerConfirm}
         />
       </DatePickerModalHeaderBackground>
