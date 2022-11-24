@@ -25,6 +25,7 @@ export interface HeaderContentProps extends HeaderPickProps {
   state: LocalState
   hours: number
   minutes: number
+  duration?: number | undefined | null
   mode: ModeType
   collapsed: boolean
   onToggle?: () => any
@@ -129,6 +130,7 @@ export function HeaderContentSingle({
   state,
   hours,
   minutes,
+  duration,
   emptyLabel = ' ',
   color,
   locale,
@@ -146,6 +148,14 @@ export function HeaderContentSingle({
     })
   }, [locale])
 
+  const hourFormatter = React.useMemo(() => {
+    return new Intl.DateTimeFormat(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: false,
+    })
+  }, [locale])
+
   const date = state.date
   date?.setHours(hours)
   date?.setMinutes(minutes)
@@ -157,7 +167,16 @@ export function HeaderContentSingle({
         { color: dateColor, fontFamily: 'Poppins-SemiBold' },
       ]}
     >
-      {state.date ? formatter.format(state.date) : emptyLabel}
+      {date
+        ? `${formatter.format(date)}${
+            duration
+              ? ' - ' +
+                hourFormatter.format(
+                  new Date(date.getTime() + duration * 60000)
+                )
+              : ''
+          }`
+        : emptyLabel}
     </Text>
   )
 }

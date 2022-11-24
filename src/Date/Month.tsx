@@ -6,7 +6,7 @@ import Day, { EmptyDay } from './Day'
 import {
   addMonths,
   areDatesOnSameDay,
-  daySize,
+  calendarDaySize,
   DisableWeekDaysType,
   getDaysInMonth,
   getFirstDayOfMonth,
@@ -331,7 +331,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
 }
 
 export const weekMargin = 6
-export const weekSize = daySize + weekMargin
+export const weekSize = calendarDaySize + weekMargin
 export const montHeaderHeight = 56
 export const monthHeaderSingleMarginTop = 4
 export const monthHeaderSingleMarginBottom = 8 + 44 + 12
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
   week: {
     flexDirection: 'row',
     marginBottom: weekMargin,
-    height: daySize,
+    height: calendarDaySize,
   },
 
   month: {},

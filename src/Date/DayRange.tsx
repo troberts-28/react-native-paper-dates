@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { daySize } from './dateUtils'
+import { calendarDaySize } from './dateUtils'
 
 function DayRange({
   leftCrop,
@@ -47,8 +47,8 @@ function DayRange({
               style={[
                 {
                   backgroundColor: selectColor,
-                  minWidth: daySize,
-                  minHeight: daySize,
+                  minWidth: calendarDaySize,
+                  minHeight: calendarDaySize,
                 },
                 leftCrop ? styles.leftRadius : null,
                 rightCrop ? styles.rightRadius : null,
@@ -74,15 +74,15 @@ function DayRange({
 
 const styles = StyleSheet.create({
   leftRadius: {
-    borderBottomLeftRadius: daySize / 2,
-    borderTopLeftRadius: daySize / 2,
+    borderBottomLeftRadius: calendarDaySize / 2,
+    borderTopLeftRadius: calendarDaySize / 2,
   },
   rightRadius: {
-    borderBottomRightRadius: daySize / 2,
-    borderTopRightRadius: daySize / 2,
+    borderBottomRightRadius: calendarDaySize / 2,
+    borderTopRightRadius: calendarDaySize / 2,
   },
   rangeRootBoth: {
-    borderRadius: daySize / 2,
+    borderRadius: calendarDaySize / 2,
   },
   flex1: {
     flex: 1,

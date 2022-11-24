@@ -2,7 +2,7 @@ import * as React from 'react'
 import { DarkTheme, Text, TouchableRipple } from 'react-native-paper'
 import { StyleSheet, View } from 'react-native'
 import DayRange from './DayRange'
-import { daySize } from './dateUtils'
+import { calendarDaySize } from './dateUtils'
 
 function EmptyDayPure() {
   return <View style={styles.empty} />
@@ -114,17 +114,17 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   button: {
-    width: daySize,
-    height: daySize,
+    width: calendarDaySize,
+    height: calendarDaySize,
     overflow: 'hidden',
-    borderRadius: daySize / 2,
+    borderRadius: calendarDaySize / 2,
   },
   day: {
     flexBasis: 0,
     flex: 1,
-    borderRadius: daySize / 2,
-    width: daySize,
-    height: daySize,
+    borderRadius: calendarDaySize / 2,
+    width: calendarDaySize,
+    height: calendarDaySize,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,

@@ -49,6 +49,7 @@ export interface DateTimePickerModalContentProps
   date?: CalendarDate
   hours?: number | undefined
   minutes?: number | undefined
+  duration?: number | undefined | null
   onChange?: (params: {
     date: CalendarDate
     hours: number
@@ -181,6 +182,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           hours={localHours}
           minutes={localMinutes}
           mode="single"
+          duration={anyProps.duration}
           collapsed={true}
           headerSeparator={props.headerSeparator}
           emptyLabel={props.emptyLabel}
