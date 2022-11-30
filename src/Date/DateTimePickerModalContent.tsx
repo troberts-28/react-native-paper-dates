@@ -19,7 +19,9 @@ import {
   clockTypes,
   PossibleClockTypes,
 } from '../Time/timeUtils'
+import { SwitchButton } from '../Time/AmPmSwitcher'
 import TimeInputs from '../Time/TimeInputs'
+import { useTheme } from 'react-native-paper'
 
 type onChangeFunc = ({
   hours,
@@ -50,23 +52,14 @@ export interface DateTimePickerModalContentProps
   hours?: number | undefined
   minutes?: number | undefined
   duration?: number | undefined | null
+  canChooseEndTime?: boolean
   isLoading?: boolean
-  onChange?: (params: {
-    date: CalendarDate
-    hours: number
-    minutes: number
-  }) => void
-  onConfirm: (params: {
-    date: CalendarDate
-    hours: number
-    minutes: number
-  }) => void
+  onConfirm: (params: { date: CalendarDate; duration?: number }) => void
   dateMode?: 'start' | 'end'
 }
 
 export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const {
-    onChange,
     onConfirm,
     onDismiss,
     disableSafeTop,
@@ -77,6 +70,8 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     startYear,
     endYear,
   } = props
+
+  const theme = useTheme()
 
   const anyProps = props as any
 
@@ -93,21 +88,24 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const [focused, setFocused] = React.useState<PossibleClockTypes>(
     clockTypes.hours
   )
-  const [localHours, setLocalHours] = React.useState<number>(anyProps.hours)
-  const [localMinutes, setLocalMinutes] = React.useState<number>(
-    getMinutes(anyProps.minutes)
-  )
+  const [isStart, setIsStart] = React.useState(true)
 
   // update local state if changed from outside or if modal is opened
   React.useEffect(() => {
+    const date = anyProps.date
+    date?.setHours(getHours(anyProps.hours))
+    date?.setMinutes(getMinutes(anyProps.minutes))
+
+    let endDate: Date | undefined
+    if (anyProps.duration) {
+      endDate = new Date(anyProps.date.getTime() + anyProps.duration * 60000)
+    }
     setState({
-      date: anyProps.date,
+      date: date,
       startDate: anyProps.startDate,
-      endDate: anyProps.endDate,
+      endDate: endDate ?? anyProps.endDate,
       dates: anyProps.dates,
     })
-    setLocalHours(getHours(anyProps.hours))
-    setLocalMinutes(getMinutes(anyProps.minutes))
   }, [
     anyProps.date,
     anyProps.startDate,
@@ -115,14 +113,14 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     anyProps.dates,
     anyProps.hours,
     anyProps.minutes,
+    anyProps.duration,
   ])
 
   const onInnerChangeDate = React.useCallback(
     (params: any) => {
-      onChange && onChange(params)
       setState((prev) => ({ ...prev, ...params }))
     },
-    [onChange, setState]
+    [setState]
   )
 
   const onFocusInput = React.useCallback(
@@ -139,23 +137,38 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         setFocused(params.focused)
       }
 
-      setLocalHours(params.hours)
-      setLocalMinutes(params.minutes)
+      const date = isStart ? state.date : state.endDate
+      date?.setHours(params.hours)
+      date?.setMinutes(params.minutes)
+
+      setState((prev) => ({ ...prev, date: date }))
     },
-    [setFocused, setLocalHours, setLocalMinutes]
+    [isStart, state.date, state.endDate]
   )
 
   const onInnerChangeClock = React.useCallback<onChangeFunc>(
     (params: any) => {
-      params.hours = toHourOutputFormat(params.hours, localHours, true)
+      params.hours = toHourOutputFormat(
+        params.hours,
+        isStart
+          ? state?.date?.getHours() ?? 0
+          : state?.endDate?.getHours() ?? 0,
+        true
+      )
       onChangeClock(params)
     },
-    [localHours, onChangeClock]
+    [isStart, onChangeClock, state?.date, state?.endDate]
   )
 
   const onInnerConfirm = React.useCallback(() => {
-    onConfirm({ date: state.date, hours: localHours, minutes: localMinutes })
-  }, [onConfirm, state.date, localHours, localMinutes])
+    onConfirm({
+      date: state.date,
+      duration:
+        state.endDate && state.date
+          ? Math.round((state.endDate.getTime() - state.date.getTime()) / 60000)
+          : undefined,
+    })
+  }, [onConfirm, state.date, state.endDate])
 
   return (
     <View
@@ -181,10 +194,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         />
         <DateTimePickerModalContentHeader
           state={state}
-          hours={localHours}
-          minutes={localMinutes}
           mode="single"
-          duration={anyProps.duration}
           collapsed={true}
           headerSeparator={props.headerSeparator}
           emptyLabel={props.emptyLabel}
@@ -218,10 +228,47 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
       />
 
       <View style={isLandscape ? styles.rootLandscape : styles.rootPortrait}>
+        <View
+          style={[
+            styles.switchContainer,
+            {
+              borderColor: '#0B6327',
+              borderRadius: theme.roundness,
+            },
+          ]}
+        >
+          <SwitchButton
+            label="Start"
+            onPress={() => {
+              setIsStart(true)
+            }}
+            selected={isStart}
+            disabled={isStart}
+          />
+          <View
+            style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
+          />
+          <SwitchButton
+            label="End"
+            onPress={() => {
+              setIsStart(false)
+            }}
+            selected={!isStart}
+            disabled={!isStart}
+          />
+        </View>
         <TimeInputs
           inputType={'picker'}
-          hours={localHours}
-          minutes={localMinutes}
+          hours={
+            isStart
+              ? state.date?.getHours() ?? 0
+              : state.endDate?.getHours() ?? 0
+          }
+          minutes={
+            isStart
+              ? state.date?.getMinutes() ?? 0
+              : state.endDate?.getHours() ?? 0
+          }
           is24Hour
           onChange={onChangeClock}
           onFocusInput={onFocusInput}
@@ -229,8 +276,16 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         />
         <View style={styles.clockContainer}>
           <AnalogClock
-            hours={toHourInputFormat(localHours, true)}
-            minutes={localMinutes}
+            hours={
+              isStart
+                ? toHourInputFormat(state.date?.getHours() ?? 0, true)
+                : toHourInputFormat(state.endDate?.getHours() ?? 0, true)
+            }
+            minutes={
+              isStart
+                ? state.date?.getMinutes() ?? 0
+                : state.endDate?.getHours() ?? 0
+            }
             focused={focused}
             is24Hour
             onChange={onInnerChangeClock}
@@ -259,7 +314,28 @@ const styles = StyleSheet.create({
     width: 24 * 3 + 96 * 2 + circleSize,
   },
   rootPortrait: {},
-  clockContainer: { padding: 12 },
+  clockContainer: { paddingLeft: 12 },
+  switchContainer: {
+    width: 50,
+    height: 80,
+    borderWidth: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  switchSeparator: {
+    height: 1,
+    width: 48,
+  },
+  switchButton: {
+    flex: 1,
+  },
+  switchButtonInner: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
 
 export default React.memo(DatePickerModalContent)

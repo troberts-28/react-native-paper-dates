@@ -23,9 +23,6 @@ export interface HeaderPickProps {
 
 export interface HeaderContentProps extends HeaderPickProps {
   state: LocalState
-  hours: number
-  minutes: number
-  duration?: number | undefined | null
   isLoading?: boolean
   mode: ModeType
   collapsed: boolean
@@ -130,9 +127,6 @@ export default function DateTimePickerModalContentHeader(
 
 export function HeaderContentSingle({
   state,
-  hours,
-  minutes,
-  duration,
   emptyLabel = ' ',
   color,
   locale,
@@ -159,8 +153,7 @@ export function HeaderContentSingle({
   }, [locale])
 
   const date = state.date
-  date?.setHours(hours)
-  date?.setMinutes(minutes)
+  const endDate = state.endDate
 
   return (
     <Text
@@ -171,12 +164,7 @@ export function HeaderContentSingle({
     >
       {date
         ? `${formatter.format(date)}${
-            duration
-              ? ' - ' +
-                hourFormatter.format(
-                  new Date(date.getTime() + duration * 60000)
-                )
-              : ''
+            endDate ? ' - ' + hourFormatter.format(endDate) : ''
           }`
         : emptyLabel}
     </Text>

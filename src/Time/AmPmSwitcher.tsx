@@ -60,7 +60,7 @@ export default function AmPmSwitcher({
   )
 }
 
-function SwitchButton({
+export function SwitchButton({
   label,
   onPress,
   selected,
