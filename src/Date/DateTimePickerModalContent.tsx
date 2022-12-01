@@ -116,12 +116,16 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
       const date = params.date
-      if (isStart && state.date) {
+      if (state.date) {
         date?.setHours(state.date.getHours())
         date?.setMinutes(state.date.getMinutes())
-      } else if (state.endDate) {
-        date?.setHours(state.endDate.getHours())
-        date?.setMinutes(state.endDate.getMinutes())
+      }
+
+      let endDate: Date | undefined
+      if (state.endDate) {
+        endDate = params.date
+        endDate?.setHours(state.endDate.getHours())
+        endDate?.setMinutes(state.endDate.getMinutes())
       }
 
       setState((prev) => ({
@@ -131,7 +135,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
               date: date,
             }
           : {
-              endDate: date,
+              endDate: endDate,
             }),
       }))
     },
@@ -206,7 +210,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           saveLabel={props.saveLabel}
           saveLabelDisabled={
             anyProps.canChooseEndTime && state.endDate && state.date
-              ? state.endDate < state.date
+              ? state.endDate.getTime() < state.date.getTime()
               : props.saveLabelDisabled || false
           }
           uppercase={props.uppercase || true}
@@ -230,7 +234,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           saveLabel={props.saveLabel}
           saveLabelDisabled={
             anyProps.canChooseEndTime && state.endDate && state.date
-              ? state.endDate < state.date
+              ? state.endDate.getTime() < state.date.getTime()
               : props.saveLabelDisabled || false
           }
           isLoading={props.isLoading}
