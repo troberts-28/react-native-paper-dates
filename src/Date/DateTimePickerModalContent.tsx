@@ -94,7 +94,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     date?.setMinutes(getMinutes(anyProps.minutes))
 
     let endDate: Date | undefined
-    if (anyProps.duration && date) {
+    if (typeof anyProps.duration === 'number' && date) {
       endDate = new Date(date.getTime() + anyProps.duration * 60000)
     }
     setState({
@@ -116,13 +116,13 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
       const date = params.date
-      if (state.date) {
+      if (typeof state.date !== 'undefined') {
         date?.setHours(state.date.getHours())
         date?.setMinutes(state.date.getMinutes())
       }
 
       let endDate: Date | undefined
-      if (state.endDate) {
+      if (typeof state.endDate !== 'undefined') {
         endDate = params.date
         endDate?.setHours(state.endDate.getHours())
         endDate?.setMinutes(state.endDate.getMinutes())
@@ -244,9 +244,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           <Calendar
             locale={locale}
             mode="single"
-            startDate={state.startDate}
-            endDate={state.endDate}
-            date={state.date}
+            date={isStart ? state.date : state.endDate}
             onChange={onInnerChangeDate}
             disableWeekDays={disableWeekDays}
             dates={state.dates}
@@ -272,6 +270,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
                 label="Start"
                 onPress={() => {
                   setIsStart(true)
+                  setFocused('hours')
                 }}
                 selected={isStart}
                 disabled={isStart}
@@ -283,6 +282,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
                 label="End"
                 onPress={() => {
                   setIsStart(false)
+                  setFocused('hours')
                 }}
                 selected={!isStart}
                 disabled={!isStart}
