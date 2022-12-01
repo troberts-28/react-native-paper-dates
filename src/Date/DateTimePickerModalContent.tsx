@@ -243,20 +243,22 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
       </DatePickerModalHeaderBackground>
 
       <View style={styles.root}>
-        <Calendar
-          locale={locale}
-          mode="single"
-          startDate={state.startDate}
-          endDate={state.endDate}
-          date={state.date}
-          onChange={onInnerChangeDate}
-          disableWeekDays={disableWeekDays}
-          dates={state.dates}
-          validRange={validRange}
-          dateMode={dateMode}
-          startYear={startYear}
-          endYear={endYear}
-        />
+        <View style={styles.calendarContainer}>
+          <Calendar
+            locale={locale}
+            mode="single"
+            startDate={state.startDate}
+            endDate={state.endDate}
+            date={state.date}
+            onChange={onInnerChangeDate}
+            disableWeekDays={disableWeekDays}
+            dates={state.dates}
+            validRange={validRange}
+            dateMode={dateMode}
+            startYear={startYear}
+            endYear={endYear}
+          />
+        </View>
 
         <View style={styles.timeContainer}>
           {anyProps.canChooseEndTime ? (
@@ -346,6 +348,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 400 + circleSize,
+  },
+  calendarContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   timeContainer: {
     alignItems: 'center',
