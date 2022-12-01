@@ -318,16 +318,16 @@ const styles = StyleSheet.create({
   timeContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 20,
+    marginLeft: 40,
   },
-  clockContainer: { paddingTop: 12 },
+  clockContainer: { paddingTop: 30 },
   switchContainer: {
     width: 80,
     height: 50,
     borderWidth: 1,
     overflow: 'hidden',
     flexDirection: 'row',
-    marginBottom: 6,
+    marginBottom: 15,
   },
   switchSeparator: {
     height: 48,
