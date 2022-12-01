@@ -116,25 +116,26 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
       const date = params.date
-      if (state.date) {
+      if (isStart && state.date) {
         date?.setHours(state.date.getHours())
         date?.setMinutes(state.date.getMinutes())
-      }
-      const endDate = params.date
-      if (state.endDate) {
-        endDate?.setHours(state.endDate.getHours())
-        endDate?.setMinutes(state.endDate.getMinutes())
+      } else if (state.endDate) {
+        date?.setHours(state.endDate.getHours())
+        date?.setMinutes(state.endDate.getMinutes())
       }
 
       setState((prev) => ({
         ...prev,
-        ...{
-          date: date,
-          endDate: anyProps.canChooseEndTime ? endDate : undefined,
-        },
+        ...(isStart
+          ? {
+              date: date,
+            }
+          : {
+              endDate: date,
+            }),
       }))
     },
-    [anyProps.canChooseEndTime, state.date, state.endDate]
+    [isStart, state.date, state.endDate]
   )
 
   const onFocusInput = React.useCallback(
@@ -256,35 +257,37 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         />
 
         <View style={styles.timeContainer}>
-          <View
-            style={[
-              styles.switchContainer,
-              {
-                borderColor: '#0B6327',
-                borderRadius: theme.roundness,
-              },
-            ]}
-          >
-            <SwitchButton
-              label="Start"
-              onPress={() => {
-                setIsStart(true)
-              }}
-              selected={isStart}
-              disabled={isStart}
-            />
+          {anyProps.canChooseEndTime ? (
             <View
-              style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
-            />
-            <SwitchButton
-              label="End"
-              onPress={() => {
-                setIsStart(false)
-              }}
-              selected={!isStart}
-              disabled={!isStart}
-            />
-          </View>
+              style={[
+                styles.switchContainer,
+                {
+                  borderColor: '#0B6327',
+                  borderRadius: theme.roundness,
+                },
+              ]}
+            >
+              <SwitchButton
+                label="Start"
+                onPress={() => {
+                  setIsStart(true)
+                }}
+                selected={isStart}
+                disabled={isStart}
+              />
+              <View
+                style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
+              />
+              <SwitchButton
+                label="End"
+                onPress={() => {
+                  setIsStart(false)
+                }}
+                selected={!isStart}
+                disabled={!isStart}
+              />
+            </View>
+          ) : null}
           <TimeInputs
             inputType={'picker'}
             hours={
