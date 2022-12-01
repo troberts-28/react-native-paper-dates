@@ -94,8 +94,8 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     date?.setMinutes(getMinutes(anyProps.minutes))
 
     let endDate: Date | undefined
-    if (anyProps.duration) {
-      endDate = new Date(anyProps.date.getTime() + anyProps.duration * 60000)
+    if (anyProps.duration && date) {
+      endDate = new Date(date.getTime() + anyProps.duration * 60000)
     }
     setState({
       date: date,
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   timeContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 40,
+    marginLeft: 80,
   },
   clockContainer: { paddingTop: 30 },
   switchContainer: {
