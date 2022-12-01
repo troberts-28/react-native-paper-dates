@@ -130,16 +130,13 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
 
       setState((prev) => ({
         ...prev,
-        ...(isStart
-          ? {
-              date: date,
-            }
-          : {
-              endDate: endDate,
-            }),
+        ...{
+          date: date,
+          endDate: endDate,
+        },
       }))
     },
-    [isStart, state.date, state.endDate]
+    [state.date, state.endDate]
   )
 
   const onFocusInput = React.useCallback(

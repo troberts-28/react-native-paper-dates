@@ -110,19 +110,6 @@ export default function DateTimePickerModalContentHeader(
       ) : null}
       {props.showSaveButton ? (
         <View>
-          {props.saveLabelDisabled ? (
-            <Text
-              style={{
-                color,
-                fontFamily: 'Poppins-SemiBold',
-                position: 'absolute',
-                top: -5,
-                fontSize: 15,
-              }}
-            >
-              Your end time must be after the start time...
-            </Text>
-          ) : null}
           <Button
             color={color}
             onPress={props.onSave}
