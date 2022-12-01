@@ -116,11 +116,15 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
       const date = params.date
-      date?.setHours(anyProps.date.getHours())
-      date?.setMinutes(anyProps.date.getMinutes())
+      if (state.date) {
+        date?.setHours(state.date.getHours())
+        date?.setMinutes(state.date.getMinutes())
+      }
       const endDate = params.date
-      endDate?.setHours(anyProps.endDate.getHours())
-      endDate?.setMinutes(anyProps.endDate.getMinutes())
+      if (state.endDate) {
+        endDate?.setHours(state.endDate.getHours())
+        endDate?.setMinutes(state.endDate.getMinutes())
+      }
 
       setState((prev) => ({
         ...prev,
@@ -130,7 +134,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         },
       }))
     },
-    [anyProps.canChooseEndTime, anyProps.date, anyProps.endDate]
+    [anyProps.canChooseEndTime, state.date, state.endDate]
   )
 
   const onFocusInput = React.useCallback(
@@ -291,7 +295,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
             minutes={
               isStart
                 ? state.date?.getMinutes() ?? 0
-                : state.endDate?.getHours() ?? 0
+                : state.endDate?.getMinutes() ?? 0
             }
             is24Hour
             onChange={onChangeClock}
@@ -308,7 +312,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
               minutes={
                 isStart
                   ? state.date?.getMinutes() ?? 0
-                  : state.endDate?.getHours() ?? 0
+                  : state.endDate?.getMinutes() ?? 0
               }
               focused={focused}
               is24Hour
