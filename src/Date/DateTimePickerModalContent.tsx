@@ -205,10 +205,9 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
           saveLabelDisabled={
-            props.saveLabelDisabled ||
-            (anyProps.canChooseEndTime && state.endDate && state.date
-              ? state.endDate < anyProps.startDate
-              : false)
+            anyProps.canChooseEndTime && state.endDate && state.date
+              ? state.endDate < state.date
+              : props.saveLabelDisabled || false
           }
           uppercase={props.uppercase || true}
           disableSafeTop={disableSafeTop}
@@ -230,10 +229,9 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           showSaveButton
           saveLabel={props.saveLabel}
           saveLabelDisabled={
-            props.saveLabelDisabled ||
-            (anyProps.canChooseEndTime && state.endDate && state.date
-              ? state.endDate < anyProps.startDate
-              : false)
+            anyProps.canChooseEndTime && state.endDate && state.date
+              ? state.endDate < state.date
+              : props.saveLabelDisabled || false
           }
           isLoading={props.isLoading}
           onSave={onInnerConfirm}
