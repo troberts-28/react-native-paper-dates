@@ -176,7 +176,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row',
+        width: '100%',
       }}
     >
       <DatePickerModalHeaderBackground>
@@ -212,84 +212,86 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         />
       </DatePickerModalHeaderBackground>
 
-      <Calendar
-        locale={locale}
-        mode="single"
-        startDate={state.startDate}
-        endDate={state.endDate}
-        date={state.date}
-        onChange={onInnerChangeDate}
-        disableWeekDays={disableWeekDays}
-        dates={state.dates}
-        validRange={validRange}
-        dateMode={dateMode}
-        startYear={startYear}
-        endYear={endYear}
-      />
-
-      <View style={styles.timeContainer}>
-        <View
-          style={[
-            styles.switchContainer,
-            {
-              borderColor: '#0B6327',
-              borderRadius: theme.roundness,
-            },
-          ]}
-        >
-          <SwitchButton
-            label="Start"
-            onPress={() => {
-              setIsStart(true)
-            }}
-            selected={isStart}
-            disabled={isStart}
-          />
-          <View
-            style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
-          />
-          <SwitchButton
-            label="End"
-            onPress={() => {
-              setIsStart(false)
-            }}
-            selected={!isStart}
-            disabled={!isStart}
-          />
-        </View>
-        <TimeInputs
-          inputType={'picker'}
-          hours={
-            isStart
-              ? state.date?.getHours() ?? 0
-              : state.endDate?.getHours() ?? 0
-          }
-          minutes={
-            isStart
-              ? state.date?.getMinutes() ?? 0
-              : state.endDate?.getHours() ?? 0
-          }
-          is24Hour
-          onChange={onChangeClock}
-          onFocusInput={onFocusInput}
-          focused={focused}
+      <View style={styles.root}>
+        <Calendar
+          locale={locale}
+          mode="single"
+          startDate={state.startDate}
+          endDate={state.endDate}
+          date={state.date}
+          onChange={onInnerChangeDate}
+          disableWeekDays={disableWeekDays}
+          dates={state.dates}
+          validRange={validRange}
+          dateMode={dateMode}
+          startYear={startYear}
+          endYear={endYear}
         />
-        <View style={styles.clockContainer}>
-          <AnalogClock
+
+        <View style={styles.timeContainer}>
+          <View
+            style={[
+              styles.switchContainer,
+              {
+                borderColor: '#0B6327',
+                borderRadius: theme.roundness,
+              },
+            ]}
+          >
+            <SwitchButton
+              label="Start"
+              onPress={() => {
+                setIsStart(true)
+              }}
+              selected={isStart}
+              disabled={isStart}
+            />
+            <View
+              style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
+            />
+            <SwitchButton
+              label="End"
+              onPress={() => {
+                setIsStart(false)
+              }}
+              selected={!isStart}
+              disabled={!isStart}
+            />
+          </View>
+          <TimeInputs
+            inputType={'picker'}
             hours={
               isStart
-                ? toHourInputFormat(state.date?.getHours() ?? 0, true)
-                : toHourInputFormat(state.endDate?.getHours() ?? 0, true)
+                ? state.date?.getHours() ?? 0
+                : state.endDate?.getHours() ?? 0
             }
             minutes={
               isStart
                 ? state.date?.getMinutes() ?? 0
                 : state.endDate?.getHours() ?? 0
             }
-            focused={focused}
             is24Hour
-            onChange={onInnerChangeClock}
+            onChange={onChangeClock}
+            onFocusInput={onFocusInput}
+            focused={focused}
           />
+          <View style={styles.clockContainer}>
+            <AnalogClock
+              hours={
+                isStart
+                  ? toHourInputFormat(state.date?.getHours() ?? 0, true)
+                  : toHourInputFormat(state.endDate?.getHours() ?? 0, true)
+              }
+              minutes={
+                isStart
+                  ? state.date?.getMinutes() ?? 0
+                  : state.endDate?.getHours() ?? 0
+              }
+              focused={focused}
+              is24Hour
+              onChange={onInnerChangeClock}
+            />
+          </View>
         </View>
       </View>
     </View>
