@@ -114,10 +114,23 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
   ])
 
   const onInnerChangeDate = React.useCallback(
-    (params: any) => {
-      setState((prev) => ({ ...prev, ...params }))
+    (params: { date: CalendarDate }) => {
+      const date = params.date
+      date?.setHours(anyProps.date.getHours())
+      date?.setMinutes(anyProps.date.getMinutes())
+      const endDate = params.date
+      endDate?.setHours(anyProps.endDate.getHours())
+      endDate?.setMinutes(anyProps.endDate.getMinutes())
+
+      setState((prev) => ({
+        ...prev,
+        ...{
+          date: date,
+          endDate: anyProps.canChooseEndTime ? endDate : undefined,
+        },
+      }))
     },
-    [setState]
+    [anyProps.canChooseEndTime, anyProps.date, anyProps.endDate]
   )
 
   const onFocusInput = React.useCallback(
@@ -186,7 +199,12 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           isLoading={props.isLoading}
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
-          saveLabelDisabled={props.saveLabelDisabled || false}
+          saveLabelDisabled={
+            props.saveLabelDisabled ||
+            (anyProps.canChooseEndTime && state.endDate && state.date
+              ? state.endDate < anyProps.startDate
+              : false)
+          }
           uppercase={props.uppercase || true}
           disableSafeTop={disableSafeTop}
           closeIcon={props.closeIcon}
@@ -206,7 +224,12 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
           locale={locale}
           showSaveButton
           saveLabel={props.saveLabel}
-          saveLabelDisabled={props.saveLabelDisabled || false}
+          saveLabelDisabled={
+            props.saveLabelDisabled ||
+            (anyProps.canChooseEndTime && state.endDate && state.date
+              ? state.endDate < anyProps.startDate
+              : false)
+          }
           isLoading={props.isLoading}
           onSave={onInnerConfirm}
         />
@@ -318,19 +341,19 @@ const styles = StyleSheet.create({
   timeContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 80,
+    marginLeft: 90,
   },
-  clockContainer: { paddingTop: 30 },
+  clockContainer: { paddingTop: 40 },
   switchContainer: {
-    width: 80,
-    height: 50,
+    width: 120,
+    height: 40,
     borderWidth: 1,
     overflow: 'hidden',
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: 25,
   },
   switchSeparator: {
-    height: 48,
+    height: 38,
     width: 1,
   },
   switchButton: {

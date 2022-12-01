@@ -109,17 +109,32 @@ export default function DateTimePickerModalContentHeader(
         />
       ) : null}
       {props.showSaveButton ? (
-        <Button
-          color={color}
-          onPress={props.onSave}
-          disabled={props.saveLabelDisabled || false}
-          uppercase={false}
-          labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
-          testID="react-native-paper-dates-save"
-          loading={props.isLoading}
-        >
-          {saveLabel}
-        </Button>
+        <View>
+          {props.saveLabelDisabled ? (
+            <Text
+              style={{
+                color,
+                fontFamily: 'Poppins-SemiBold',
+                position: 'absolute',
+                top: -5,
+                fontSize: 15,
+              }}
+            >
+              Your end time must be after the start time...
+            </Text>
+          ) : null}
+          <Button
+            color={color}
+            onPress={props.onSave}
+            disabled={props.saveLabelDisabled || false}
+            uppercase={false}
+            labelStyle={{ fontFamily: 'Poppins-SemiBold', fontSize: 25 }}
+            testID="react-native-paper-dates-save"
+            loading={props.isLoading}
+          >
+            {saveLabel}
+          </Button>
+        </View>
       ) : null}
     </View>
   )
