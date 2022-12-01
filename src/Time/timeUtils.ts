@@ -167,14 +167,14 @@ export function useSwitchColors(highlighted: boolean) {
     }
 
     if (highlighted) {
-      return Color(theme.colors.primary).lighten(1).hex()
+      return '#CCE4D9'
     }
     return theme.colors.surface
   }, [highlighted, theme])
 
   const color = React.useMemo<string>(() => {
     if (highlighted && !theme.dark) {
-      return theme.colors.primary
+      return '#0B6327'
     }
     return theme.colors.placeholder
   }, [highlighted, theme])

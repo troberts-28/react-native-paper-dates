@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, StyleSheet, useWindowDimensions } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import Calendar, {
   BaseCalendarProps,
@@ -75,9 +75,6 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
 
   const anyProps = props as any
 
-  const dimensions = useWindowDimensions()
-  const isLandscape = dimensions.width > dimensions.height
-
   // use local state to add only onConfirm state changes
   const [state, setState] = React.useState<LocalState>({
     date: anyProps.date,
@@ -141,7 +138,10 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
       date?.setHours(params.hours)
       date?.setMinutes(params.minutes)
 
-      setState((prev) => ({ ...prev, date: date }))
+      setState((prev) => ({
+        ...prev,
+        ...(isStart ? { date: date } : { endDate: date }),
+      }))
     },
     [isStart, state.date, state.endDate]
   )
@@ -176,7 +176,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        flexDirection: 'row',
       }}
     >
       <DatePickerModalHeaderBackground>
@@ -227,7 +227,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
         endYear={endYear}
       />
 
-      <View style={isLandscape ? styles.rootLandscape : styles.rootPortrait}>
+      <View style={styles.timeContainer}>
         <View
           style={[
             styles.switchContainer,
@@ -306,14 +306,17 @@ function getHours(hours: number | undefined | null): number {
 }
 
 const styles = StyleSheet.create({
-  rootLandscape: {
+  root: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 24 * 3 + 96 * 2 + circleSize,
+    width: 300 + circleSize,
   },
-  rootPortrait: {},
+  timeContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   clockContainer: { paddingLeft: 12 },
   switchContainer: {
     width: 50,
@@ -321,6 +324,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     overflow: 'hidden',
     position: 'absolute',
+    flexDirection: 'row',
     top: 0,
     left: 0,
   },
