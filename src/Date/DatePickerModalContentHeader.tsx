@@ -119,6 +119,7 @@ export function HeaderContentSingle({
     return new Intl.DateTimeFormat(locale, {
       month: 'short',
       day: 'numeric',
+      weekday: 'short',
     })
   }, [locale])
 

@@ -58,14 +58,7 @@ function DatePickerInputWithoutModal(
           onChangeText={onChangeText}
           keyboardAppearance={theme.dark ? 'dark' : 'default'}
           error={!!error}
-          style={[
-            styles.input,
-            style,
-            {
-              fontFamily: 'Poppins-SemiBold',
-              color: '#3D3C3C',
-            },
-          ]}
+          style={[styles.input, style]}
         />
         {inputButtons}
         {!!error ? (
@@ -111,7 +104,11 @@ const styles = StyleSheet.create({
   },
   helperText: {
     flex: 1,
+    fontFamily: 'Poppins-SemiBold',
   },
-  input: {},
+  input: {
+    fontFamily: 'Poppins-SemiBold',
+    color: '#3D3C3C',
+  },
 })
 export default React.forwardRef(DatePickerInputWithoutModal)

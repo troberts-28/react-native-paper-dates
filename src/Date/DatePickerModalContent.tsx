@@ -18,6 +18,7 @@ import DatePickerModalContentHeader, {
 } from './DatePickerModalContentHeader'
 import CalendarEdit from './CalendarEdit'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
+import { View } from 'react-native'
 
 export type LocalState = {
   startDate: CalendarDate
@@ -171,20 +172,24 @@ export function DatePickerModalContent(
       <AnimatedCrossView
         collapsed={collapsed}
         calendar={
-          <Calendar
-            locale={locale}
-            mode={mode}
-            startDate={state.startDate}
-            endDate={state.endDate}
-            date={state.date}
-            onChange={onInnerChange}
-            disableWeekDays={disableWeekDays}
-            dates={state.dates}
-            validRange={validRange}
-            dateMode={dateMode}
-            startYear={startYear}
-            endYear={endYear}
-          />
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Calendar
+              locale={locale}
+              mode={mode}
+              startDate={state.startDate}
+              endDate={state.endDate}
+              date={state.date}
+              onChange={onInnerChange}
+              disableWeekDays={disableWeekDays}
+              dates={state.dates}
+              validRange={validRange}
+              dateMode={dateMode}
+              startYear={startYear}
+              endYear={endYear}
+            />
+          </View>
         }
         calendarEdit={
           <CalendarEdit
