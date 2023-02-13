@@ -4,3 +4,4 @@ declare function DayName({ label }: {
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof DayName>;
 export default _default;
+//# sourceMappingURL=DayName.d.ts.map

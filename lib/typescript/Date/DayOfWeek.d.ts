@@ -11,3 +11,4 @@ declare function DayOfWeek(props: {
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof DayOfWeek>;
 export default _default;
+//# sourceMappingURL=DayOfWeek.d.ts.map

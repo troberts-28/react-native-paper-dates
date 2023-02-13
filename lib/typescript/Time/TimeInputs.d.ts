@@ -15,3 +15,4 @@ declare function TimeInputs({ hours, minutes, onFocusInput, focused, inputType, 
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof TimeInputs>;
 export default _default;
+//# sourceMappingURL=TimeInputs.d.ts.map

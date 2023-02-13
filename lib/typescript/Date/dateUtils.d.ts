@@ -55,3 +55,4 @@ export declare function useInputFormat({ formatter, locale, }: {
     locale: string | undefined;
 }): string;
 export declare function differenceInMonths(firstDate: Date, secondDate: Date): number;
+//# sourceMappingURL=dateUtils.d.ts.map

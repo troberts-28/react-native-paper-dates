@@ -32,3 +32,4 @@ export declare function HeaderContentMulti({ state, emptyLabel, moreLabel, color
 export declare function HeaderContentRange({ locale, state, headerSeparator, startLabel, endLabel, color, }: HeaderContentProps & {
     color: string;
 }): JSX.Element;
+//# sourceMappingURL=DatePickerModalContentHeader.d.ts.map

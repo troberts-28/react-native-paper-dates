@@ -5,3 +5,4 @@ export default function AnimatedClockSwitcher({ focused, hours, minutes, }: {
     hours: any;
     minutes: any;
 }): JSX.Element;
+//# sourceMappingURL=AnimatedClockSwitcher.d.ts.map

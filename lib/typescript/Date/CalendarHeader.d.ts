@@ -10,3 +10,4 @@ declare function CalendarHeader({ scrollMode, onPrev, onNext, disableWeekDays, l
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof CalendarHeader>;
 export default _default;
+//# sourceMappingURL=CalendarHeader.d.ts.map

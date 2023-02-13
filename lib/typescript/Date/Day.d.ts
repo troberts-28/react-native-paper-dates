@@ -20,3 +20,4 @@ declare function Day(props: {
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof Day>;
 export default _default;
+//# sourceMappingURL=Day.d.ts.map

@@ -20,3 +20,4 @@ declare function TimePicker({ hours, minutes, onFocusInput, focused, inputType, 
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof TimePicker>;
 export default _default;
+//# sourceMappingURL=TimePicker.d.ts.map

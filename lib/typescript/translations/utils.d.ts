@@ -16,3 +16,4 @@ export declare type TranslationsType = {
 };
 export declare function getTranslation<K extends keyof TranslationsType>(locale: string | undefined, key: K, fallback?: any): any;
 export declare function registerTranslation(locale: string, translations: TranslationsType): void;
+//# sourceMappingURL=utils.d.ts.map

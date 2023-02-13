@@ -6,3 +6,4 @@ export default function YearPicker({ selectedYear, selectingYear, onPressYear, s
     startYear: number;
     endYear: number;
 }): JSX.Element;
+//# sourceMappingURL=YearPicker.d.ts.map

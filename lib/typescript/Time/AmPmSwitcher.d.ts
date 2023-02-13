@@ -9,3 +9,4 @@ export declare function SwitchButton({ label, onPress, selected, disabled, }: {
     selected: boolean;
     disabled: boolean;
 }): JSX.Element;
+//# sourceMappingURL=AmPmSwitcher.d.ts.map

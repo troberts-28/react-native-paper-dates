@@ -16,3 +16,4 @@ export declare function useYearChange(onChange: (index: number | undefined) => v
     currentIndexRef: MutableRefObject<number>;
     selectedYear: number | undefined;
 }): void;
+//# sourceMappingURL=SwiperUtils.d.ts.map

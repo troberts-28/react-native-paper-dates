@@ -1,5 +1,7 @@
 # Contributing
 
+## "prepare": "husky install && bob build",
+
 We want this community to be friendly and respectful to each other. Please follow it in all your interactions with the project.
 
 ## Development workflow
