@@ -70,17 +70,14 @@ function AnalogClock({
 
         // Avoiding the "24h"
         // Should be 12h for 12 hours and PM mode
+        // hours24AndPM is false for 12:00
 
-        console.log(hours24AndPM, modeRef.current, hours24)
-
-        if (hours12AndPm || hours24AndPM) {
-          pickedHours += 12
-        }
         if (modeRef.current === 'AM' && pickedHours === 12) {
           pickedHours = 0
         }
-
-        console.log(pickedHours)
+        if (hours12AndPm || hours24AndPM) {
+          pickedHours += 12
+        }
 
         if (
           (!hours24 && modeRef.current === 'AM' && pickedHours === 12) ||
