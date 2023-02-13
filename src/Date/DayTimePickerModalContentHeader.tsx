@@ -127,7 +127,7 @@ export function HeaderContentSingle({
     return new Intl.DateTimeFormat(locale, {
       hour: 'numeric',
       minute: 'numeric',
-      hour12: false,
+      hourCycle: 'h23',
     })
   }, [locale])
 

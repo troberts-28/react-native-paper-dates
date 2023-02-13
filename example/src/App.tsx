@@ -40,7 +40,7 @@ function App() {
   const timeFormatter = new Intl.DateTimeFormat(undefined, {
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false,
+    hourCycle: 'h23',
   })
   const [inputDate, setInputDate] = React.useState<Date | undefined>(undefined)
 
