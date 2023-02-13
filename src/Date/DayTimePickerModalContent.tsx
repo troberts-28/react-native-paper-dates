@@ -14,6 +14,7 @@ import {
   clockTypes,
   PossibleClockTypes,
 } from '../Time/timeUtils'
+import { DisplayModeContext } from '../Time/TimePicker'
 import TimeInputs from '../Time/TimeInputs'
 import DayOfWeek from './DayOfWeek'
 
@@ -70,6 +71,20 @@ export function DateTimePickerModalContent(
   const [localDayIndex, setLocalDayIndex] = React.useState<number>(
     getDayIndex(anyProps.dayIndex)
   )
+
+  const [displayMode, setDisplayMode] = React.useState<'AM' | 'PM' | undefined>(
+    undefined
+  )
+
+  // Initialize display Mode according the hours value
+  React.useEffect(() => {
+    if ((props.hours ?? 0) >= 12) {
+      setDisplayMode('PM')
+    } else {
+      setDisplayMode('AM')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // update local state if changed from outside or if modal is opened
   React.useEffect(() => {
@@ -188,27 +203,30 @@ export function DateTimePickerModalContent(
           )
         })}
       </View>
-
-      <View style={isLandscape ? styles.rootLandscape : styles.rootPortrait}>
-        <TimeInputs
-          inputType={'picker'}
-          hours={localHours}
-          minutes={localMinutes}
-          is24Hour
-          onChange={onChangeClock}
-          onFocusInput={onFocusInput}
-          focused={focused}
-        />
-        <View style={styles.clockContainer}>
-          <AnalogClock
-            hours={toHourInputFormat(localHours, true)}
+      <DisplayModeContext.Provider
+        value={{ mode: displayMode, setMode: setDisplayMode }}
+      >
+        <View style={isLandscape ? styles.rootLandscape : styles.rootPortrait}>
+          <TimeInputs
+            inputType={'picker'}
+            hours={localHours}
             minutes={localMinutes}
-            focused={focused}
             is24Hour
-            onChange={onInnerChangeClock}
+            onChange={onChangeClock}
+            onFocusInput={onFocusInput}
+            focused={focused}
           />
+          <View style={styles.clockContainer}>
+            <AnalogClock
+              hours={toHourInputFormat(localHours, true)}
+              minutes={localMinutes}
+              focused={focused}
+              is24Hour
+              onChange={onInnerChangeClock}
+            />
+          </View>
         </View>
-      </View>
+      </DisplayModeContext.Provider>
     </View>
   )
 }

@@ -22,6 +22,7 @@ import {
 import { SwitchButton } from '../Time/AmPmSwitcher'
 import TimeInputs from '../Time/TimeInputs'
 import { useTheme } from 'react-native-paper'
+import { DisplayModeContext } from 'src/Time/TimePicker'
 
 type onChangeFunc = ({
   hours,
@@ -112,6 +113,20 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
     anyProps.minutes,
     anyProps.duration,
   ])
+
+  const [displayMode, setDisplayMode] = React.useState<'AM' | 'PM' | undefined>(
+    undefined
+  )
+
+  // Initialize display Mode according the hours value
+  React.useEffect(() => {
+    if ((props.hours ?? 0) >= 12) {
+      setDisplayMode('PM')
+    } else {
+      setDisplayMode('AM')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
@@ -254,76 +269,82 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
             endYear={endYear}
           />
         </View>
-
-        <View style={styles.timeContainer}>
-          {anyProps.canChooseEndTime ? (
-            <View
-              style={[
-                styles.switchContainer,
-                {
-                  borderColor: '#0B6327',
-                  borderRadius: theme.roundness,
-                },
-              ]}
-            >
-              <SwitchButton
-                label="Start"
-                onPress={() => {
-                  setIsStart(true)
-                  setFocused('hours')
-                }}
-                selected={isStart}
-                disabled={isStart}
-              />
+        <DisplayModeContext.Provider
+          value={{ mode: displayMode, setMode: setDisplayMode }}
+        >
+          <View style={styles.timeContainer}>
+            {anyProps.canChooseEndTime ? (
               <View
-                style={[styles.switchSeparator, { backgroundColor: '#0B6327' }]}
-              />
-              <SwitchButton
-                label="End"
-                onPress={() => {
-                  setIsStart(false)
-                  setFocused('hours')
-                }}
-                selected={!isStart}
-                disabled={!isStart}
-              />
-            </View>
-          ) : null}
-          <TimeInputs
-            inputType={'picker'}
-            hours={
-              isStart
-                ? state.date?.getHours() ?? 0
-                : state.endDate?.getHours() ?? 0
-            }
-            minutes={
-              isStart
-                ? state.date?.getMinutes() ?? 0
-                : state.endDate?.getMinutes() ?? 0
-            }
-            is24Hour
-            onChange={onChangeClock}
-            onFocusInput={onFocusInput}
-            focused={focused}
-          />
-          <View style={styles.clockContainer}>
-            <AnalogClock
+                style={[
+                  styles.switchContainer,
+                  {
+                    borderColor: '#0B6327',
+                    borderRadius: theme.roundness,
+                  },
+                ]}
+              >
+                <SwitchButton
+                  label="Start"
+                  onPress={() => {
+                    setIsStart(true)
+                    setFocused('hours')
+                  }}
+                  selected={isStart}
+                  disabled={isStart}
+                />
+                <View
+                  style={[
+                    styles.switchSeparator,
+                    { backgroundColor: '#0B6327' },
+                  ]}
+                />
+                <SwitchButton
+                  label="End"
+                  onPress={() => {
+                    setIsStart(false)
+                    setFocused('hours')
+                  }}
+                  selected={!isStart}
+                  disabled={!isStart}
+                />
+              </View>
+            ) : null}
+            <TimeInputs
+              inputType={'picker'}
               hours={
                 isStart
-                  ? toHourInputFormat(state.date?.getHours() ?? 0, true)
-                  : toHourInputFormat(state.endDate?.getHours() ?? 0, true)
+                  ? state.date?.getHours() ?? 0
+                  : state.endDate?.getHours() ?? 0
               }
               minutes={
                 isStart
                   ? state.date?.getMinutes() ?? 0
                   : state.endDate?.getMinutes() ?? 0
               }
-              focused={focused}
               is24Hour
-              onChange={onInnerChangeClock}
+              onChange={onChangeClock}
+              onFocusInput={onFocusInput}
+              focused={focused}
             />
+            <View style={styles.clockContainer}>
+              <AnalogClock
+                hours={
+                  isStart
+                    ? toHourInputFormat(state.date?.getHours() ?? 0, true)
+                    : toHourInputFormat(state.endDate?.getHours() ?? 0, true)
+                }
+                minutes={
+                  isStart
+                    ? state.date?.getMinutes() ?? 0
+                    : state.endDate?.getMinutes() ?? 0
+                }
+                focused={focused}
+                is24Hour
+                onChange={onInnerChangeClock}
+              />
+            </View>
           </View>
-        </View>
+        </DisplayModeContext.Provider>
       </View>
     </View>
   )
