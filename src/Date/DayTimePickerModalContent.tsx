@@ -35,6 +35,7 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
   isLoading?: boolean
   disableSafeTop?: boolean
   saveLabelDisabled?: boolean
+  hideDayPicker?: boolean
   dayIndex?: number | undefined
   hours?: number | undefined
   minutes?: number | undefined
@@ -54,7 +55,14 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
 export function DateTimePickerModalContent(
   props: DayTimePickerModalContentProps
 ) {
-  const { onChange, onConfirm, onDismiss, disableSafeTop, locale } = props
+  const {
+    onChange,
+    onConfirm,
+    onDismiss,
+    disableSafeTop,
+    locale,
+    hideDayPicker,
+  } = props
 
   const anyProps = props as any
 
@@ -187,22 +195,24 @@ export function DateTimePickerModalContent(
         />
       </DatePickerModalHeaderBackground>
 
-      <View style={{ flexDirection: 'row', marginTop: 32 }}>
-        {Array.from(Array(7)).map((_, index) => {
-          // required for Monday to show first
-          const adjustedIndex = index < 6 ? index + 1 : 0
-          return (
-            <DayOfWeek
-              dayIndex={adjustedIndex}
-              selected={localDayIndex === adjustedIndex}
-              onPressDay={onInnerChangeDay}
-              primaryColor="#0B6327"
-              disabled={false}
-              textColorOnPrimary="#fff"
-            />
-          )
-        })}
-      </View>
+      {!hideDayPicker ? (
+        <View style={{ flexDirection: 'row', marginTop: 32 }}>
+          {Array.from(Array(7)).map((_, index) => {
+            // required for Monday to show first
+            const adjustedIndex = index < 6 ? index + 1 : 0
+            return (
+              <DayOfWeek
+                dayIndex={adjustedIndex}
+                selected={localDayIndex === adjustedIndex}
+                onPressDay={onInnerChangeDay}
+                primaryColor="#0B6327"
+                disabled={false}
+                textColorOnPrimary="#fff"
+              />
+            )
+          })}
+        </View>
+      ) : null}
       <DisplayModeContext.Provider
         value={{ mode: displayMode, setMode: setDisplayMode }}
       >

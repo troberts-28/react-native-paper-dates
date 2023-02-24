@@ -7,6 +7,7 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
     isLoading?: boolean;
     disableSafeTop?: boolean;
     saveLabelDisabled?: boolean;
+    hideDayPicker?: boolean;
     dayIndex?: number | undefined;
     hours?: number | undefined;
     minutes?: number | undefined;
