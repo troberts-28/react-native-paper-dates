@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { HeaderPickProps } from './DayTimePickerModalContentHeader';
+import { PossibleInputTypes } from '../Time/timeUtils';
 export interface DayTimePickerModalContentProps extends HeaderPickProps {
     inputFormat?: string;
     locale: string;
@@ -8,6 +9,8 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
     disableSafeTop?: boolean;
     saveLabelDisabled?: boolean;
     hideDayPicker?: boolean;
+    hideTimePicker?: boolean;
+    initialInputType?: PossibleInputTypes;
     dayIndex?: number | undefined;
     hours?: number | undefined;
     minutes?: number | undefined;
