@@ -148,7 +148,6 @@ export function DateTimePickerModalContent(
 
   const onInnerChangeClock = React.useCallback<onChangeFunc>(
     (params: any) => {
-      setInputType('picker')
       params.hours = toHourOutputFormat(params.hours, localHours, true)
       onChangeClock(params)
     },
@@ -209,7 +208,18 @@ export function DateTimePickerModalContent(
       </DatePickerModalHeaderBackground>
 
       {!hideDayPicker ? (
-        <View style={{ flexDirection: 'row', marginTop: 32 }}>
+        <View
+          style={
+            !hideDayPicker
+              ? { flexDirection: 'row', marginTop: 32 }
+              : {
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }
+          }
+        >
           {Array.from(Array(7)).map((_, index) => {
             // required for Monday to show first
             const adjustedIndex = index < 6 ? index + 1 : 0
@@ -301,7 +311,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   clockContainer: { padding: 12 },
-  inputTypeToggle: { position: 'absolute', alignSelf: 'center', bottom: -12 },
+  inputTypeToggle: { position: 'absolute', alignSelf: 'center', bottom: -64 },
 })
 
 export default React.memo(DateTimePickerModalContent)
