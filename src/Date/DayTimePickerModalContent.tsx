@@ -7,16 +7,12 @@ import DayTimePickerModalContentHeader, {
 } from './DayTimePickerModalContentHeader'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
 import AnalogClock from '../Time/AnalogClock'
-import { IconButton } from 'react-native-paper'
 import {
   toHourInputFormat,
   toHourOutputFormat,
   circleSize,
   clockTypes,
   PossibleClockTypes,
-  getTimeInputTypeIcon,
-  PossibleInputTypes,
-  reverseInputTypes,
 } from '../Time/timeUtils'
 import { DisplayModeContext } from '../Time/TimePicker'
 import TimeInputs from '../Time/TimeInputs'
@@ -41,7 +37,6 @@ export interface DayTimePickerModalContentProps extends HeaderPickProps {
   saveLabelDisabled?: boolean
   hideDayPicker?: boolean
   hideTimePicker?: boolean
-  initialInputType?: PossibleInputTypes
   dayIndex?: number | undefined
   hours?: number | undefined
   minutes?: number | undefined
@@ -66,7 +61,6 @@ export function DateTimePickerModalContent(
     onConfirm,
     onDismiss,
     disableSafeTop,
-    initialInputType,
     locale,
     hideDayPicker,
     hideTimePicker,
@@ -86,10 +80,6 @@ export function DateTimePickerModalContent(
   )
   const [localDayIndex, setLocalDayIndex] = React.useState<number>(
     getDayIndex(anyProps.dayIndex)
-  )
-
-  const [inputType, setInputType] = React.useState<PossibleInputTypes>(
-    initialInputType ?? 'keyboard'
   )
 
   const [displayMode, setDisplayMode] = React.useState<'AM' | 'PM' | undefined>(
@@ -243,27 +233,15 @@ export function DateTimePickerModalContent(
           <View
             style={isLandscape ? styles.rootLandscape : styles.rootPortrait}
           >
-            <View style={styles.timeInputContainer}>
-              <TimeInputs
-                inputType={inputType}
-                hours={localHours}
-                minutes={localMinutes}
-                is24Hour
-                onChange={onChangeClock}
-                onFocusInput={onFocusInput}
-                focused={focused}
-              />
-              <IconButton
-                icon={getTimeInputTypeIcon(inputType, {
-                  keyboard: 'keyboard-outline',
-                  picker: 'clock-outline',
-                })}
-                onPress={() => setInputType(reverseInputTypes[inputType])}
-                size={24}
-                style={styles.inputTypeToggle}
-                accessibilityLabel="toggle keyboard"
-              />
-            </View>
+            <TimeInputs
+              inputType={'keyboard'}
+              hours={localHours}
+              minutes={localMinutes}
+              is24Hour
+              onChange={onChangeClock}
+              onFocusInput={onFocusInput}
+              focused={focused}
+            />
             <View style={styles.clockContainer}>
               <AnalogClock
                 hours={toHourInputFormat(localHours, true)}
@@ -306,12 +284,7 @@ const styles = StyleSheet.create({
     width: 24 * 3 + 96 * 2 + circleSize,
   },
   rootPortrait: {},
-  timeInputContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   clockContainer: { padding: 12 },
-  inputTypeToggle: { position: 'absolute', alignSelf: 'center', bottom: -64 },
 })
 
 export default React.memo(DateTimePickerModalContent)
