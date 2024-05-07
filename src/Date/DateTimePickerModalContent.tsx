@@ -130,12 +130,12 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
 
   const onInnerChangeDate = React.useCallback(
     (params: { date: CalendarDate }) => {
-      let endDate: Date | undefined
-      if (state.endDate) {
-        endDate = params.date ? new Date(params.date?.getTime()) : new Date()
-        endDate?.setHours(state.endDate.getHours())
-        endDate?.setMinutes(state.endDate.getMinutes())
-      }
+      // let endDate: Date | undefined
+      // if (state.endDate) {
+      //   endDate = params.date ? new Date(params.date?.getTime()) : new Date()
+      //   endDate?.setHours(state.endDate.getHours())
+      //   endDate?.setMinutes(state.endDate.getMinutes())
+      // }
 
       const date = params.date ? new Date(params.date?.getTime()) : new Date()
       if (state.date) {
@@ -146,7 +146,7 @@ export function DatePickerModalContent(props: DateTimePickerModalContentProps) {
       setState((prev) => ({
         ...prev,
         date: date,
-        endDate: endDate,
+        // endDate: endDate,
       }))
     },
     [state.date, state.endDate]
