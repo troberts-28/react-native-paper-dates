@@ -15,4 +15,3 @@ export interface DatePickerModalRangeProps extends DatePickerModalContentRangePr
 export declare function DatePickerModal(props: DatePickerModalRangeProps | DatePickerModalSingleProps | DatePickerModalMultiProps): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof DatePickerModal>;
 export default _default;
-//# sourceMappingURL=DatePickerModal.d.ts.map

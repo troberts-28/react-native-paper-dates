@@ -37,4 +37,3 @@ export declare function HeaderContentMulti({ state, emptyLabel, moreLabel, color
 export declare function HeaderContentRange({ locale, state, headerSeparator, startLabel, endLabel, color, }: HeaderContentProps & {
     color: string;
 }): JSX.Element;
-//# sourceMappingURL=DateTimePickerModalContentHeader.d.ts.map

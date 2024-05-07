@@ -13,4 +13,3 @@ declare function AnalogClock({ hours, minutes, focused, is24Hour, onChange, }: {
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof AnalogClock>;
 export default _default;
-//# sourceMappingURL=AnalogClock.d.ts.map

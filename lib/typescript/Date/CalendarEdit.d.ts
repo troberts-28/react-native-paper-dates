@@ -14,4 +14,3 @@ declare function CalendarEdit({ mode, state, label, startLabel, endLabel, collap
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof CalendarEdit>;
 export default _default;
-//# sourceMappingURL=CalendarEdit.d.ts.map

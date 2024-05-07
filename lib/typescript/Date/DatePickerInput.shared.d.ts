@@ -11,4 +11,3 @@ export declare type DatePickerInputProps = {
     withDateFormatInLabel?: boolean;
     calendarIcon?: string;
 } & Omit<React.ComponentProps<typeof TextInput>, 'value' | 'onChange' | 'onChangeText'>;
-//# sourceMappingURL=DatePickerInput.shared.d.ts.map

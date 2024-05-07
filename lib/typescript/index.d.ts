@@ -15,4 +15,3 @@ export { default as pl } from './translations/pl';
 export { default as pt } from './translations/pt';
 export { default as enGB } from './translations/enGB';
 export { default as de } from './translations/de';
-//# sourceMappingURL=index.d.ts.map

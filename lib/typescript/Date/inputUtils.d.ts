@@ -12,4 +12,3 @@ export default function useDateInput({ locale, value, validRange, inputMode, onC
     onChangeText: (date: string) => void;
     inputFormat: string;
 };
-//# sourceMappingURL=inputUtils.d.ts.map

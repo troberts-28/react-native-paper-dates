@@ -56,4 +56,3 @@ export declare function darkenBy(color: Color, ratio: number): Color<string | nu
 }> | ArrayLike<number> | {
     [key: string]: any;
 }>;
-//# sourceMappingURL=utils.d.ts.map

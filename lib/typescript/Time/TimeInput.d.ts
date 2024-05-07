@@ -11,4 +11,3 @@ interface TimeInputProps extends Omit<Omit<TextInputProps, 'value'>, 'onFocus'> 
 }
 declare const _default: React.ForwardRefExoticComponent<TimeInputProps & React.RefAttributes<unknown>>;
 export default _default;
-//# sourceMappingURL=TimeInput.d.ts.map

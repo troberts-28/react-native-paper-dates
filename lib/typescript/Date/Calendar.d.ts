@@ -55,4 +55,3 @@ export interface CalendarMultiProps extends BaseCalendarProps {
 declare function Calendar(props: CalendarSingleProps | CalendarRangeProps | CalendarMultiProps): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof Calendar>;
 export default _default;
-//# sourceMappingURL=Calendar.d.ts.map

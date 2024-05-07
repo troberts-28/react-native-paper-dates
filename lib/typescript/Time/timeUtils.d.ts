@@ -15,7 +15,7 @@ declare type InputIconMap = {
     [inputType in PossibleInputTypes]: string;
 };
 export declare const inputTypeIcons: InputIconMap;
-export declare const getTimeInputTypeIcon: (inputType: PossibleInputTypes, inputIconMap?: InputIconMap | undefined) => string;
+export declare const getTimeInputTypeIcon: (inputType: PossibleInputTypes, inputIconMap?: InputIconMap) => string;
 export declare type PossibleClockTypes = 'hours' | 'minutes';
 export declare type ClockTypeMap = {
     [clockType in PossibleClockTypes]: PossibleClockTypes;
@@ -39,4 +39,3 @@ export declare function useInputColors(highlighted: boolean): {
 export declare function toHourInputFormat(hours: number, is24Hour: boolean): number;
 export declare function toHourOutputFormat(newHours: number, previousHours: number, is24Hour: boolean): number;
 export {};
-//# sourceMappingURL=timeUtils.d.ts.map

@@ -46,4 +46,3 @@ export declare function getVerticalMonthsOffset(index: number): number;
 export declare function getMonthHeight(scrollMode: 'horizontal' | 'vertical', index: number): number;
 declare const _default: React.MemoExoticComponent<typeof Month>;
 export default _default;
-//# sourceMappingURL=Month.d.ts.map

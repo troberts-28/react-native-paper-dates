@@ -4,4 +4,3 @@ declare function Swiper({ scrollMode, renderItem, renderHeader, renderFooter, se
 export declare function useDebouncedCallback(callback: any): any;
 declare const _default: React.MemoExoticComponent<typeof Swiper>;
 export default _default;
-//# sourceMappingURL=Swiper.d.ts.map

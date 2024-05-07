@@ -7,4 +7,3 @@ declare function DayRange({ leftCrop, rightCrop, inRange, selectColor, }: {
 }): JSX.Element | null;
 declare const _default: React.MemoExoticComponent<typeof DayRange>;
 export default _default;
-//# sourceMappingURL=DayRange.d.ts.map

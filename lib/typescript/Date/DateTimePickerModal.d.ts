@@ -9,4 +9,3 @@ interface DateTimePickerModalProps extends DateTimePickerModalContentProps {
 export declare function DateTimePickerModal(props: DateTimePickerModalProps): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof DateTimePickerModal>;
 export default _default;
-//# sourceMappingURL=DateTimePickerModal.d.ts.map

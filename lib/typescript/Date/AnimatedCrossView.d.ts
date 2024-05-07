@@ -4,4 +4,3 @@ export default function AnimatedCrossView({ collapsed, calendar, calendarEdit, }
     calendarEdit: any;
     collapsed: boolean;
 }): JSX.Element;
-//# sourceMappingURL=AnimatedCrossView.d.ts.map

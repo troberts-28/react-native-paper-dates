@@ -19,4 +19,3 @@ export declare function TimePickerModal({ visible, onDismiss, onConfirm, hours, 
 }): JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof TimePickerModal>;
 export default _default;
-//# sourceMappingURL=TimePickerModal.d.ts.map

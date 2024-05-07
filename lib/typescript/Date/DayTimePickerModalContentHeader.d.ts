@@ -32,4 +32,3 @@ export default function DayTimePickerModalContentHeader(props: HeaderContentProp
 export declare function HeaderContentSingle({ dayIndex, hours, minutes, duration, color, locale, }: HeaderContentProps & {
     color: string;
 }): JSX.Element;
-//# sourceMappingURL=DayTimePickerModalContentHeader.d.ts.map
